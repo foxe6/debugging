@@ -37,7 +37,7 @@ def debug_info(info: Any = None, indent: int = 0) -> tuple:
                 _info = jd(info, indent=indent_scale)
                 serializer = jd
             except:
-                _info = dumpobj(info, indent=0, indent_scale=indent_scale)
+                _info = dumpobj(info, indent_scale=indent_scale)
                 serializer = dumpobj
             if len(_info) > 2500:
                 _info = tw.fill(serializer(info))

@@ -21,7 +21,7 @@ def get_error_info() -> list:
                 info = ",".join(e.args)
             except:
                 info = str(e)
-            stacks.append((type(e).__name__, qualname(tb.tb_frame) + "@" + filename + ":" + str(lineno), info + "\n"))
+            stacks.append((type(e).__name__, _qualname(tb.tb_frame) + "@" + filename + ":" + str(lineno), info + "\n"))
             tb = tb.tb_next
         except:
             return stacks
@@ -33,11 +33,25 @@ def get_success_info(depth: int = 1) -> str:
     lineno = stack[2]
     filename = os.path.basename(stack[1])
     frame = stack[0]
-    return qualname(frame) + "@" + filename + ":" + str(lineno)
+    return _qualname(frame) + "@" + filename + ":" + str(lineno)
+
+
+def _qualname(frame: FrameType) -> str:
+    return f"'{qualname(frame)}'"
 
 
 def qualname(frame: FrameType) -> str:
-    return f"'{where(frame).__qualname__}'"
+    return where(frame).__qualname__
+
+
+def classname(frame: FrameType) -> str:
+    try:
+        return frame.f_locals["self"].__class__.__name__
+    except:
+        if "." in qualname(frame):
+            return qualname(frame).split(".")[0]
+        else:
+            raise Exception("frame is not in a class")
 
 
 def where(frame: FrameType) -> object:
