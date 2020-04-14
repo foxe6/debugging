@@ -21,7 +21,7 @@ def get_error_info() -> list:
                 info = ",".join(e.args)
             except:
                 info = str(e)
-            stacks.append((type(e).__name__, where(tb.tb_frame)+"@"+filename+":"+str(lineno), info+"\n"))
+            stacks.append((type(e).__name__, qualname(tb.tb_frame) + "@" + filename + ":" + str(lineno), info + "\n"))
             tb = tb.tb_next
         except:
             return stacks
@@ -33,10 +33,13 @@ def get_success_info(depth: int = 1) -> str:
     lineno = stack[2]
     filename = os.path.basename(stack[1])
     frame = stack[0]
-    return where(frame)+"@"+filename+":"+str(lineno)
+    return qualname(frame) + "@" + filename + ":" + str(lineno)
 
 
-def where(frame: FrameType) -> str:
-    _where = [obj for obj in gc.get_referrers(frame.f_code) if inspect.isfunction(obj)][0].__qualname__
-    return f"'{_where}'"
+def qualname(frame: FrameType) -> str:
+    return f"'{where(frame).__qualname__}'"
+
+
+def where(frame: FrameType) -> object:
+    return [obj for obj in gc.get_referrers(frame.f_code) if inspect.isfunction(obj)][0]
 
