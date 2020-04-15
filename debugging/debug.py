@@ -19,7 +19,7 @@ def debug_info(info: Any = None, indent: int = 0) -> tuple:
         failed = sys.exc_info() != stack
         status = "Failed" if failed else "Loaded"
         what = " "*(indent_size-indent_scale)+f"[Debug]    {status}    "
-        stack = []
+        stack = ()
         if failed:
             stack = errorstacks()
             what += stack[0][1]
