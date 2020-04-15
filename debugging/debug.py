@@ -1,7 +1,9 @@
-from .utils import *
+import os
+import sys
 import traceback
 import textwrap
-from omnitools import *
+from omnitools import dumpobj, jd, successstacks, errorstacks
+from typing import *
 
 
 __ALL__ = ["debug_info"]
@@ -19,10 +21,10 @@ def debug_info(info: Any = None, indent: int = 0) -> tuple:
         what = " "*(indent_size-indent_scale)+f"[Debug]    {status}    "
         stack = []
         if failed:
-            stack = get_error_info()
+            stack = errorstacks()
             what += stack[0][1]
         else:
-            what += get_success_info(depth=2)
+            what += successstacks()[2]
         if info:
             try:
                 columns = os.get_terminal_size().columns
@@ -54,6 +56,6 @@ def debug_info(info: Any = None, indent: int = 0) -> tuple:
             " "*(indent_size-indent_scale)+\
             "Debug information is not available due to:\n"+\
             textwrap.indent(traceback.format_exc(), indent),\
-            get_error_info()
+            errorstacks()
 
 
