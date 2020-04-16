@@ -1,4 +1,4 @@
-# Debugging
+# Debugging Tool
 
 <badges>[![version](https://img.shields.io/pypi/v/debugging.svg)](https://pypi.org/project/debugging/)
 [![license](https://img.shields.io/pypi/l/debugging.svg)](https://pypi.org/project/debugging/)
