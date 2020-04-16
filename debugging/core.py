@@ -9,9 +9,8 @@ from typing import *
 __ALL__ = ["debug_info"]
 
 
-def debug_info(info: Any = None, indent: int = 0) -> tuple:
+def debug_info(info: Any = None, indent: int = 0, indent_scale: int = 4) -> tuple:
     indent = int(indent)+1
-    indent_scale = 4
     indent_size = indent*indent_scale
     indent = " "*indent_size
     try:
