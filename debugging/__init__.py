@@ -1,4 +1,4 @@
-__version__ = "0.4.1"
+__version__ = "0.5.0"
 __keywords__ = ["debugging"]
 __entry__ = "test:main"
 
