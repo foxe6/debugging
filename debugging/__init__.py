@@ -1,6 +1,5 @@
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 __keywords__ = ["debugging"]
-__entry__ = "test:main"
 
 
 if not __version__.endswith(".0"):
